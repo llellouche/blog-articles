@@ -1,0 +1,36 @@
+<style>
+
+  label {
+    padding-left: 15px;
+  }
+
+  .container {
+    padding-top: 60px;
+  }
+
+  .movies {
+    padding-top: 45px;
+  }
+
+  .single-autocomplete {
+    max-height: 650px !important;
+  }
+
+</style>
+
+<div class="container">
+  <iframe *ngIf="globalStore.getRandomVideo() != null" width="100%" height="650" [src]='getVideo()' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="row movies">
+    <div class="col-md-4">
+      <span *ngFor="let gender of globalStore.allGenders">
+      <div>
+        <input [attr.id]="gender.id" type="checkbox" (click)="gender.selected = !gender.selected; globalStore.loadDiscoverMovies()" [checked]="gender.selected">
+        <label [attr.for]="gender.id">{{ gender.name }}</label>
+      </div>
+    </span>
+    </div>
+    <div class="col-md-8">
+      <app-movie-list *ngIf="globalStore.displayedMovies" [movies]="globalStore.displayedMovies"></app-movie-list>
+    </div>
+  </div>
+</div>

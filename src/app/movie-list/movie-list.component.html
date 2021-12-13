@@ -1,0 +1,49 @@
+<style>
+  .card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+  }
+  ngb-rating {
+    color: #88ff00;
+    font-size: 25px;
+  }
+  .badge, .rating-count {
+    font-size: 22px;
+  }
+</style>
+
+<div *ngFor="let movie of movies" class="card">
+  <div class="card-horizontal">
+    <div class="img-square-wrapper">
+      <img class="" [src]="'https://www.themoviedb.org/t/p/w300' + movie.poster_path" alt="Card image cap">
+    </div>
+    <div class="card-body">
+      <br>
+      <h4 class="card-title">{{ movie.title }}</h4>
+      <br>
+      <p class="card-text">{{ movie.overview }}</p>
+      <br>
+      <br>
+      <button class="btn btn-primary float-right" (click)="triggerModal(modalData, movie)">Voir les détails</button>
+    </div>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted"></small>
+  </div>
+</div>
+
+<ng-template #modalData let-modal>
+  <iframe width="800" height="450" [src]='getVideo()' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="modal-body">
+    <h4 class="modal-title" id="modal-basic-title">{{ modalMovie?.title }} : {{ displayedVideo?.name }}</h4>
+    <br>
+    <span>
+      <ngb-rating *ngIf="modalMovie && modalMovie.vote_average" [max]="10" [(rate)]="modalMovie.vote_average" [readonly]="true"></ngb-rating>
+      <span class="badge badge-secondary"> {{ modalMovie?.vote_average }}</span>
+      <span class="rating-count"> Pour {{ modalMovie?.vote_count }} utilisateurs</span>
+    </span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>

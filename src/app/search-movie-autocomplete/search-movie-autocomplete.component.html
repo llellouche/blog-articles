@@ -1,0 +1,44 @@
+<style>
+  .full-width {
+    width: 100%;
+  }
+
+  mat-form-field {
+    background-color: white;
+    color: #1876D2;
+    height: 51px;
+    font-size: 14px;
+  }
+
+  .mat-option {
+    height: 135px;
+  }
+
+  .single-autocomplete {
+    max-height: 650px !important;
+  }
+
+  .search-button {
+    cursor: pointer;
+    font-size: 30px;
+  }
+</style>
+
+<form class="example-form">
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Rechercher un film</mat-label>
+    <input matInput
+           aria-label="Movie"
+           (keyup.enter)="displaySearchPage()"
+           [matAutocomplete]="auto"
+           [formControl]="searchCtrl">
+    <mat-icon class="search-button" (click)='displaySearchPage()' matSuffix>search</mat-icon>
+    <mat-autocomplete #auto="matAutocomplete" class="single-autocomplete">
+      <mat-option *ngFor="let movie of filteredMovies | async" [value]="globalStore.currentSearch">
+        <img class="example-option-img" aria-hidden [src]="'https://www.themoviedb.org/t/p/w300' + movie.poster_path"
+             height="125">
+        <span> {{movie.title}}</span> |
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

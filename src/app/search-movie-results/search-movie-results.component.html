@@ -1,0 +1,31 @@
+<style>
+
+  label {
+    padding-left: 15px;
+  }
+
+  .container {
+    padding-top: 60px;
+  }
+
+  .movies {
+    padding-top: 45px;
+  }
+
+  .single-autocomplete {
+    max-height: 650px !important;
+  }
+
+  h1 {
+    padding-top: 45px;
+  }
+</style>
+
+<div class="container">
+  <h1>Résultats pour : {{ globalStore.currentSearch }}</h1>
+  <div class="row movies">
+    <div class="col-md-12">
+      <app-movie-list [movies]="globalStore.searchResults"></app-movie-list>
+    </div>
+  </div>
+</div>
