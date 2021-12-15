@@ -17,6 +17,10 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
 import {SearchMovieResultsComponent} from './search-movie-results/search-movie-results.component';
 import { IndexComponent } from './index/index.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -24,25 +28,29 @@ import { IndexComponent } from './index/index.component';
     MovieListComponent,
     SearchMovieAutocompleteComponent,
     SearchMovieResultsComponent,
-    IndexComponent
+    IndexComponent,
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent
   ],
-  imports: [
-    ErrorModule,
-    BrowserModule,
-    FormsModule,
-    NgbModule,
-    HttpClientModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
+    imports: [
+        ErrorModule,
+        BrowserModule,
+        FormsModule,
+        NgbModule,
+        HttpClientModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatButtonModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
   ],

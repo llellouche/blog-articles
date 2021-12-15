@@ -20,12 +20,4 @@ export class IndexComponent implements OnInit {
     this.globalStore.loadGenders();
     this.globalStore.loadMainVideoMovie();
   }
-
-  public getVideo(): SafeUrl {
-    if (!!this.globalStore.getRandomVideo()) {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(environment.youtubeBaseVideoUrl + this.globalStore.getRandomVideo()?.key);
-    }
-
-    return '';
-  }
 }

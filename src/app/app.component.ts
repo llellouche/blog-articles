@@ -7,7 +7,5 @@ import {RouterService} from "./router/router.service";
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  public constructor(public routerService: RouterService) {
-  }
 
 }

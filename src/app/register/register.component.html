@@ -1,0 +1,133 @@
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
+    .h-custom {
+        height: calc(100% - 73px);
+    }
+    @media (max-width: 450px) {
+        .h-custom {
+            height: 100%;
+        }
+    }
+
+    mat-form-field {
+        width: 100%!important;
+    }
+</style>
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-sm-6 col-md-8 col-lg-5 col-xl-5">
+                <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png" class="img-fluid"
+                     alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form (submit)="onLoginSubmit()" [formGroup]="formGroupLogin" autocomplete="off">
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                        <p class="lead fw-normal mb-0 me-3">Register</p>
+                    </div>
+
+                    <div class="divider d-flex align-items-center my-4">
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <mat-form-field>
+                            <input matInput
+                                   formControlName="email"
+                                   id="email"
+                                   placeholder="Email"
+                                   type="email">
+                            <mat-error
+                                    *ngIf="formGroupLogin.controls.email.touched && formGroupLogin.controls.email.invalid && formGroupLogin.controls.email.value === ''">
+                                <small class="d-block text-danger custom-danger text-right mt-1">
+                                    Please enter email
+                                </small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Username input -->
+                    <div class="form-outline mb-4">
+                        <mat-form-field>
+                            <input matInput
+                                   formControlName="username"
+                                   id="username"
+                                   placeholder="Username"
+                                   type="text">
+                            <mat-error
+                                    *ngIf="formGroupLogin.controls.username.touched && formGroupLogin.controls.username.invalid && formGroupLogin.controls.username.value === ''">
+                                <small class="d-block text-danger custom-danger text-right mt-1">
+                                    Please enter username
+                                </small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <mat-form-field>
+                            <input matInput
+                                   type="password"
+                                   id="password"
+                                   formControlName="password"
+                                   placeholder="Password">
+                            <mat-error
+                                    *ngIf="formGroupLogin.controls.username.touched && formGroupLogin.controls.username.invalid && formGroupLogin.controls.username.value === ''">
+                                <small class="d-block text-danger custom-danger text-right mt-1">
+                                    Please enter username
+                                </small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Password Check input -->
+                    <div class="form-outline mb-3">
+                        <mat-form-field>
+                            <input matInput
+                                   type="password"
+                                   id="passwordCheck"
+                                   formControlName="passwordCheck"
+                                   placeholder="Password check">
+                            <mat-error
+                                    *ngIf="formGroupLogin.controls.passwordCheck.touched && formGroupLogin.controls.passwordCheck.invalid && formGroupLogin.controls.passwordCheck.value === ''">
+                                <small class="d-block text-danger custom-danger text-right mt-1">
+                                    Please enter passwordCheck
+                                </small>
+                            </mat-error>
+<!--                            <mat-error-->
+                                <small *ngIf="passwordNotMatches" class="d-block text-danger custom-danger text-right mt-1">
+                                    Password not matches
+                                </small>
+<!--                            </mat-error>-->
+                        </mat-form-field>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- Checkbox -->
+                        <div class="form-check mb-0">
+                        </div>
+                        <a href="#!" class="text-body">Forgot password?</a>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button mat-raised-button color="primary"
+                                type="submit"
+                        >
+                            Login
+                        </button>
+                        <p class="fw-bold mt-2 pt-1 mb-0">Already have an account? <a [routerLink]="routerService.generate('app_login')"
+                                                                                          class="link-danger">Login</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

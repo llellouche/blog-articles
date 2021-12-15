@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {ResponseAuth} from "./responseAuth";
 import {AuthService} from "./auth.service";
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,17 @@ export class AuthApiService {
   ) {
   }
 
-  public getAuthenticationToken(): Observable<ResponseAuth> {
+  public getAuthenticationToken(email: string, password: string): Observable<ResponseAuth> {
     return new Observable<ResponseAuth>(observer => {
-      let url = environment.baseApi + '/3/authentication/token?api_key=' + environment.weCineApiKey
+      let url = environment.baseApi + '/auth'
       this.http
-        .get(url)
+        .post(url, {
+            email: email,
+            password: password
+        })
         .pipe(
           map((res: ResponseAuth) => {
-            if (res.request_token) {
+            if (res.auth_token) {
               return res;
             } else {
               throw {status: 401};
@@ -32,6 +36,7 @@ export class AuthApiService {
         )
         .subscribe(
           responseAuth => {
+            this.onAuthLoginSuccess(responseAuth);
             observer.next(responseAuth);
           },
           error => {
@@ -44,15 +49,18 @@ export class AuthApiService {
     });
   }
 
-  // TODO
-  public createRequestToken(): Observable<ResponseAuth> {
+  public getRegisterToken(email: string, username: string, password: string): Observable<ResponseAuth> {
     return new Observable<ResponseAuth>(observer => {
-      let url = environment.baseApi + '/3/authentication/token?api_key=' + environment.weCineApiKey
+      let url = environment.baseApi + '/register'
       this.http
-        .get(url)
+        .post(url, {
+            email: email,
+            username: username,
+            password: password
+        })
         .pipe(
           map((res: ResponseAuth) => {
-            if (res.request_token) {
+            if (res.auth_token) {
               return res;
             } else {
               throw {status: 401};
@@ -75,8 +83,9 @@ export class AuthApiService {
   }
 
   private onAuthLoginSuccess(responseAuth: ResponseAuth): void {
-    if (!!responseAuth.request_token) {
-      this.authService.setToken(responseAuth.request_token);
+    if (!!responseAuth.auth_token) {
+      this.authService.setToken(responseAuth.auth_token);
+      this.authService.setLoggedUser(new User(responseAuth));
     }
   }
 }

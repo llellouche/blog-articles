@@ -1,4 +1,6 @@
 {
+    "app_login": ["/", "login"],
+    "app_register": ["/", "register"],
     "app_index": ["/", "index"],
     "app_search_movie": ["/", "search", ":query"]
 }

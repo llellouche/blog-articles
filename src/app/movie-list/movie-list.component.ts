@@ -37,26 +37,5 @@ export class MovieListComponent implements OnInit {
     this.modalService.open(content, {size: 'lg', backdrop: 'static'}).result.then(() => {
       this.modalMovie = null;
     });
-
-    this.loadVideo();
-  }
-
-  public getVideo(): SafeUrl {
-    if (!!this.modalMovie && !!this.modalMovie.videos) {
-      this.displayedVideo = this.modalMovie.videos[Math.floor(Math.random() * this.modalMovie.videos.length)];
-      return this.sanitizer.bypassSecurityTrustResourceUrl(environment.youtubeBaseVideoUrl + this.displayedVideo.key);
-    }
-
-    return '';
-  }
-
-  private loadVideo() {
-    this.movieApiService.getMovieVideo(this.modalMovie?.id).subscribe((videos: Video[]) => {
-      if (this.modalMovie) {
-        this.modalMovie.videos = videos.filter((video: Video) => {
-          return video.site === 'YouTube';
-        });
-      }
-    });
   }
 }

@@ -4,11 +4,10 @@
 
 export const environment = {
   production: false,
-  authenticationRedirectUrl: 'http://localhost:4200',
-  weCineApiKey: 'ca804e95ea4878495fa15e7a2bba460a',
+  weCineApiKey: 'ca804e95ea4878495fa15e7a2bba460a', // TODO Remove
   defaultLanguage: 'fr-FR',
-  baseApi: 'https://api.themoviedb.org',
-  youtubeBaseVideoUrl: 'https://www.youtube.com/embed/'
+  // baseApi: 'http://0.0.0.0:8080',
+  baseApi: 'http://localhost:4200/api',
 };
 
 /*

@@ -3,21 +3,34 @@ import {RouterModule, Routes} from '@angular/router';
 import {SearchMovieResultsComponent} from "./search-movie-results/search-movie-results.component";
 import {IndexComponent} from "./index/index.component";
 import {errorRoutes} from "./error/error.routes";
+import {LoginComponent} from "./login/login.component";
+import {AuthGuard} from "./auth/guard/auth.guard";
+import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
 
   {
     path: '',
     redirectTo: 'index',
-    pathMatch: 'full',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
       path: 'search/:query',
       component: SearchMovieResultsComponent,
+      canActivate: [AuthGuard]
     },
   {
     path: 'index',
-    component: IndexComponent
+    component: IndexComponent,
+    canActivate: [AuthGuard]
   },
   ...errorRoutes,
 ];
