@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalStore} from "../service/stores/global-store";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {environment} from "../../environments/environment";
+import {Article} from "../model/article";
+import {RouterService} from "../router/router.service";
 
 @Component({
   selector: 'app-index',
@@ -12,11 +12,16 @@ export class IndexComponent implements OnInit {
 
   public constructor(
     public globalStore: GlobalStore,
-    private sanitizer: DomSanitizer) {
+    public routerService: RouterService) {
   }
 
   public ngOnInit(): void {
     this.globalStore.loadArticles();
     this.globalStore.loadTags();
+  }
+
+  public displayArticle(article: Article): void {
+    this.globalStore.displayedArticle = article;
+    this.globalStore.refreshDisplayedArticle();
   }
 }

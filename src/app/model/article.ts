@@ -1,19 +1,42 @@
-import {AbstractModel} from "./abstractModel";
+import {Tag} from "./tag";
+import {Reaction} from "./reaction";
+import {Comment} from "./comment";
 
-export class Article extends AbstractModel {
-  public id?:string;
+export class Article {
+  public '@id':string;
+  public id:number;
   public name?: string;
   public reference?: string;
   public content?: string;
-  public draft?: string;
+  public draft?: boolean;
   public createdAt?: Date;
   public updatedAt?: Date;
+  public authorUsername?: string;
+  public authorId?: number;
+  public reactionsCount?: {[key: string]: number};
 
-  constructor(values: any) {
-    let parsedValues = super(values);
-    Object.assign(this, parsedValues);
+  public tags?: Tag[];
+
+  public reactions?: Reaction[];
+
+  public comments?: Comment[];
+
+  constructor(values: object= {}) {
+    this.id = 0;
+    this.draft = true;
+    Object.assign(this, values);
   }
-}
-interface Dic {
-  [key: string]: any
+
+  public countReactionsByType(type: string): number {
+    let reactions: number = 0;
+
+    for (let reactionsKey in this.reactionsCount) {
+        if (reactionsKey == type) {
+          return this.reactionsCount[reactionsKey];
+        }
+      }
+
+      return reactions;
+    }
+
 }

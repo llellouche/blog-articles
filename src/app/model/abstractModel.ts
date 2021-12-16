@@ -2,6 +2,7 @@ interface Dic {
   [key: string]: any
 }
 
+// TODO Remove unused
 export class AbstractModel {
   constructor (values: any) {
     let tmpObject: Dic= [];

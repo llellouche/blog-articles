@@ -1,12 +1,12 @@
-import {Gender} from "../../model/gender";
-import {GenderApiService} from "../api/gender-api.service";
 import {Injectable} from "@angular/core";
-import {MovieApiService} from "../api/movie-api.service";
-import {Movie} from "../../model/movie";
-import {Video} from "../../model/video";
 import {Tag} from "../../model/tag";
 import {Article} from "../../model/article";
 import {ArticleApiService} from "../api/article-api.service";
+import {TagApiService} from "../api/tag-api.service";
+import {ReactionApiService} from "../api/reaction-api.service";
+import {Reaction} from "../../model/reaction";
+import {CommentApiService} from "../api/comment-api.service";
+import {Comment} from "../../model/comment";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,14 @@ export class GlobalStore {
   public allArticles?: Article[];
   public displayedArticles?: Article[];
   public displayedArticle?: Article;
-  public displayedDetailsMovie?: Movie;
   public currentSearch?: string;
   public searchResults: Article[] = [];
 
   constructor(
-    private genderApiService: GenderApiService,
-    private movieApiService: MovieApiService,
     private articleApiService: ArticleApiService,
+    private tagApiService: TagApiService,
+    private reactionApiService: ReactionApiService,
+    private commentApiService: CommentApiService,
   ) {
   }
 
@@ -36,10 +36,36 @@ export class GlobalStore {
 
   public loadArticles(): void {
     this.articleApiService.getAllArticles().subscribe((articles: Article[]) => {
-      // console.log(articles);
+      // Load Tags and Reactions
+      articles.map((article: Article) => {
+        this.loadArticleData(article, false);
+      });
       this.allArticles = articles;
       this.displayedArticles = articles;
     });
+  }
+
+  public refreshDisplayedArticle(): void {
+    if(this.displayedArticle) {
+      this.loadArticleData(this.displayedArticle, true);
+    }
+  }
+
+  private loadArticleData(article: Article, full: boolean): void {
+    this.tagApiService.getArticleTags(article.id).subscribe((tags: Tag[]) => {
+      article.tags = tags;
+    });
+
+    this.reactionApiService.getArticleReactions(article.id).subscribe((reactions: Reaction[]) => {
+      article.reactions = reactions;
+    });
+
+    if (full) {
+      this.commentApiService.getArticleComments(article.id).subscribe((comments: Comment[]) => {
+        article.comments = comments;
+      });
+
+    }
   }
 
   public loadSearchMovies(filterValue: string): void {

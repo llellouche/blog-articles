@@ -1,0 +1,62 @@
+<form (submit)="onArticleSubmit()" [formGroup]="formGroupArticle" autocomplete="off">
+    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+        <p class="lead fw-normal mb-0 me-3">Create new article</p>
+    </div>
+
+    <div class="divider d-flex align-items-center my-4">
+    </div>
+
+    <!-- Name input -->
+    <div class="form-outline mb-4">
+        <mat-form-field>
+            <input matInput
+                   [(ngModel)]="article.name"
+                   formControlName="name"
+                   id="name"
+                   placeholder="Article name"
+                   type="text">
+            <mat-error>
+                <small class="d-block text-danger custom-danger text-right mt-1">
+                    Please enter article name
+                </small>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- Content input -->
+    <div class="form-outline mb-4">
+        <mat-form-field>
+            <textarea matInput
+                   [(ngModel)]="article.content"
+                   formControlName="content"
+                   id="content"
+                   placeholder="Article content"
+                   type="email"></textarea>
+            <mat-error>
+                <small class="d-block text-danger custom-danger text-right mt-1">
+                    Please enter conten
+                </small>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <mat-button-toggle-group>
+        <mat-button-toggle
+                [checked]="article.draft"
+                (change)="article.draft = $event.source.checked">
+            Draft
+        </mat-button-toggle>
+        <mat-button-toggle
+                [checked]="!article.draft"
+                (change)="article.draft = !$event.source.checked">
+            Published
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div class="text-center text-lg-start mt-4 pt-2">
+        <button mat-flat-button color="primary" type="submit">
+            Create
+        </button>
+    </div>
+
+</form>

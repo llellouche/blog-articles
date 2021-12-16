@@ -13,10 +13,10 @@ export class AuthService {
     localStorage.setItem('request_token', token);
   }
 
-  public getLoggedUser(): User | null {
+  public getLoggedUser(): User | undefined {
     return this.isAuthenticated()
       ? new User(JSON.parse(localStorage.getItem('user') || '{}'))
-      : null;
+      : undefined;
   }
 
   public setLoggedUser(user: User): void {

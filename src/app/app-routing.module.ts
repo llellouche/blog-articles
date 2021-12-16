@@ -7,6 +7,7 @@ import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./auth/guard/auth.guard";
 import {RegisterComponent} from "./register/register.component";
 import {LogoutComponent} from "./logout/logout.component";
+import {CreateArticleComponent} from "./create-article/create-article.component";
 
 const routes: Routes = [
 
@@ -31,10 +32,15 @@ const routes: Routes = [
       path: 'search/:query',
       component: SearchMovieResultsComponent,
       canActivate: [AuthGuard]
-    },
+  },
   {
     path: 'index',
     component: IndexComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'article/create',
+    component: CreateArticleComponent,
     canActivate: [AuthGuard]
   },
   ...errorRoutes,

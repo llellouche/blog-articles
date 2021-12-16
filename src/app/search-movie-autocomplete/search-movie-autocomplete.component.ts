@@ -1,10 +1,8 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap} from 'rxjs/operators';
+import {Component, ViewChild} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import {FormControl} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
 import {GlobalStore} from "../service/stores/global-store";
-import {Movie} from "../model/movie";
 import {RouterService} from "../router/router.service";
 import {Router} from "@angular/router";
 import {MatAutocompleteTrigger} from "@angular/material/autocomplete";

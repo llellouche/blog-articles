@@ -1,25 +1,5 @@
-<style>
-
-  label {
-    padding-left: 15px;
-  }
-
-  .container {
-    padding-top: 60px;
-  }
-
-  .article {
-    padding-top: 45px;
-  }
-
-  .single-autocomplete {
-    max-height: 650px !important;
-  }
-
-</style>
-
 <app-header></app-header>
-<div class="container">
+<div class="full-container">
   <!--      TODO Display Tags for filter-->
   <!--      <span *ngFor="let tag of globalStore.allTags">-->
   <!--      <div>-->
@@ -27,12 +7,17 @@
   <!--        <label [attr.for]="tag.id">{{ tag.title }}</label>-->
   <!--      </div>-->
   <!--    </span>-->
+  <div class="container-fluid action-buttons">
+      <button [routerLink]="routerService.generate('app_article_create')" mat-flat-button color="primary">
+          Create new article
+      </button>
+  </div>
   <div class="row article">
       <div class="col-md-6">
-          <app-current-article [article]="globalStore.displayedArticle"></app-current-article>
+          <app-current-article *ngIf="globalStore.displayedArticle" [article]="globalStore.displayedArticle" (closeArticle)="globalStore.displayedArticle = undefined"></app-current-article>
       </div>
       <div [ngClass]="{'container-fluid': ! globalStore.displayedArticle, 'col-md-6': globalStore.displayedArticle}">
-          <app-article-list *ngIf="globalStore.displayedArticles" [articles]="globalStore.displayedArticles" (article)="globalStore.displayedArticle = $event"></app-article-list>
+          <app-article-list *ngIf="globalStore.displayedArticles" [articles]="globalStore.displayedArticles" (article)="displayArticle($event)"></app-article-list>
       </div>
   </div>
 </div>

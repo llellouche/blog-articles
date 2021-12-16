@@ -44,8 +44,7 @@
                                    id="email"
                                    placeholder="Email"
                                    type="email">
-                            <mat-error
-                                    *ngIf="formGroupLogin.controls.email.touched && formGroupLogin.controls.email.invalid && formGroupLogin.controls.email.value === ''">
+                            <mat-error>
                                 <small class="d-block text-danger custom-danger text-right mt-1">
                                     Please enter email
                                 </small>
@@ -61,8 +60,7 @@
                                    id="username"
                                    placeholder="Username"
                                    type="text">
-                            <mat-error
-                                    *ngIf="formGroupLogin.controls.username.touched && formGroupLogin.controls.username.invalid && formGroupLogin.controls.username.value === ''">
+                            <mat-error>
                                 <small class="d-block text-danger custom-danger text-right mt-1">
                                     Please enter username
                                 </small>
@@ -78,8 +76,7 @@
                                    id="password"
                                    formControlName="password"
                                    placeholder="Password">
-                            <mat-error
-                                    *ngIf="formGroupLogin.controls.username.touched && formGroupLogin.controls.username.invalid && formGroupLogin.controls.username.value === ''">
+                            <mat-error>
                                 <small class="d-block text-danger custom-danger text-right mt-1">
                                     Please enter username
                                 </small>
@@ -95,8 +92,7 @@
                                    id="passwordCheck"
                                    formControlName="passwordCheck"
                                    placeholder="Password check">
-                            <mat-error
-                                    *ngIf="formGroupLogin.controls.passwordCheck.touched && formGroupLogin.controls.passwordCheck.invalid && formGroupLogin.controls.passwordCheck.value === ''">
+                            <mat-error>
                                 <small class="d-block text-danger custom-danger text-right mt-1">
                                     Please enter passwordCheck
                                 </small>
@@ -117,7 +113,7 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button mat-raised-button color="primary"
+                        <button mat-flat-button color="primary"
                                 type="submit"
                         >
                             Login

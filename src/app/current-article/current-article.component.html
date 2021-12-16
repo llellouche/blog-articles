@@ -1,1 +1,74 @@
-{{ article?.name }}
+<div class="card">
+    <div class="card-body">
+        <div class="img-square-wrapper">
+            <div class="title-wrapper">
+                {{ article?.name }}
+            </div>
+        </div>
+        <p class="card-text ">{{ article?.content }}</p>
+        <span class="date be-comment-time">{{ article?.updatedAt | date: 'medium' }}</span>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <span *ngFor="let tag of article?.tags" class="badge rounded-pill bg-info">{{ tag.title }}</span>
+            <app-article-reactions [article]="article"></app-article-reactions>
+        </li>
+<!--        <li class="list-group-item">-->
+<!--            <app-article-reactions [article]="article"></app-article-reactions>-->
+<!--        </li>-->
+<!--        <li class="list-group-item">Vestibulum at eros</li>-->
+    </ul>
+    <div class="card-body">
+        <button mat-flat-button color="accent">
+            Edit
+        </button>
+        <button (click)="closeArticle.emit()" mat-flat-button class="close-button" color="secondary">
+            Close
+        </button>
+<!--        <a href="#" class="card-link">Another link</a>-->
+    </div>
+</div>
+
+<div class="container">
+    <div class="be-comment-block">
+        <h1 class="comments-title">Comments ({{ article?.comments?.length }})</h1>
+        <div *ngFor="let comment of article?.comments" class="be-comment">
+            <div class="be-img-comment">
+                <img src="http://www.kutchguide.in/wp-content/uploads/2018/02/pict-customer-male-ivr-people-vector-stencils-library.png-diagram-flowchart-example.png" alt="" class="be-ava-comment">
+            </div>
+            <div class="be-comment-content">
+			<span class="be-comment-name">
+				{{ comment.username }}
+			</span>
+                <span class="be-comment-time">
+				<i class="fa fa-clock-o"></i>
+				{{ comment.updatedAt | date: 'medium' }}
+			</span>
+                <p class="be-comment-text">
+                    {{ comment.content }}
+                </p>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <h3>Leave your comment</h3>
+            <form (submit)="onComment()" [formGroup]="formGroupComment" autocomplete="off">
+                <mat-form-field class="col-sm-10">
+                            <textarea matInput
+                                      formControlName="comment"
+                                      id="comment"
+                                      placeholder="Leave a comment"
+                            required></textarea>
+                    <mat-error>
+                        <small class="d-block text-danger custom-danger text-right mt-1">
+                            Please enter comment
+                        </small>
+                    </mat-error>
+                </mat-form-field>
+                <button mat-flat-button color="primary" class="col-sm-2">
+                    <mat-icon>send</mat-icon>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

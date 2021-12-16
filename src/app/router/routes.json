@@ -3,5 +3,6 @@
     "app_register": ["/", "register"],
     "app_logout": ["/", "logout"],
     "app_index": ["/", "index"],
+    "app_article_create": ["/", "article", "create"],
     "app_search_movie": ["/", "search", ":query"]
 }

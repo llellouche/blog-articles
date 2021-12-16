@@ -1,0 +1,8 @@
+<small class="text-muted">
+    <button (click)="react('LOVE')" class="love-button" mat-icon-button [matBadge]="article?.countReactionsByType('LOVE')" matBadgeColor="warn" color="warn">
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button (click)="react('LIKE')" class="like-button" mat-icon-button [matBadge]="article?.countReactionsByType('LIKE')" matBadgeColor="primary" color="primary">
+        <mat-icon>thumb_up</mat-icon>
+    </button>
+</small>
