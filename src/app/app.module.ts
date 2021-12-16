@@ -7,7 +7,7 @@ import {ErrorModule} from "./error/error.module";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ApiInterceptor} from "./service/api/apiInterceptor";
-import {MovieListComponent} from './movie-list/movie-list.component';
+import {ArticleListComponent} from './movie-list/article-list.component';
 import {SearchMovieAutocompleteComponent} from './search-movie-autocomplete/search-movie-autocomplete.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -21,17 +21,21 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {MatButtonModule} from "@angular/material/button";
+import { LogoutComponent } from './logout/logout.component';
+import { CurrentArticleComponent } from './current-article/current-article.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MovieListComponent,
+    ArticleListComponent,
     SearchMovieAutocompleteComponent,
     SearchMovieResultsComponent,
     IndexComponent,
     HeaderComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogoutComponent,
+    CurrentArticleComponent
   ],
     imports: [
         ErrorModule,

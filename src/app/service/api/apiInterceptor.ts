@@ -19,13 +19,18 @@ export class ApiInterceptor implements HttpInterceptor {
   // Intercept for adding baseApi and API Key
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (! this.authService.isAuthenticated()) {
-      return next.handle(req);
+      let newReq = req.clone({
+        url: environment.baseApi + req.url
+      });
+
+      return next.handle(newReq);
     }
 
     let newReq;
     let token: string = <string> this.authService.getToken();
 
     newReq = req.clone({
+      url: environment.baseApi + req.url,
       setHeaders: {
         Authorization: token,
       },

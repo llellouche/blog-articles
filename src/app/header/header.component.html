@@ -25,6 +25,11 @@
         width: 550px;
     }
 
+    .logout {
+        float: right;
+        margin-right: 35px;
+        margin-left: 15px;
+    }
 </style>
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
@@ -40,4 +45,5 @@
 
     <app-search-movie-autocomplete class="search"></app-search-movie-autocomplete>
     <div class="spacer"></div>
+    <div class="logout" [routerLink]="routerService.generate('app_logout')">Logout</div>
 </div>

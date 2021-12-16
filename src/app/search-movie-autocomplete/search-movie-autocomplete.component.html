@@ -35,9 +35,9 @@
     <mat-icon class="search-button" (click)='displaySearchPage()' matSuffix>search</mat-icon>
     <mat-autocomplete #auto="matAutocomplete" class="single-autocomplete">
       <mat-option *ngFor="let movie of filteredMovies | async" [value]="globalStore.currentSearch">
-        <img class="example-option-img" aria-hidden [src]="'https://www.themoviedb.org/t/p/w300' + movie.poster_path"
-             height="125">
-        <span> {{movie.title}}</span> |
+<!--        <img class="example-option-img" aria-hidden [src]="'https://www.themoviedb.org/t/p/w300' + movie.name"-->
+<!--             height="125">-->
+<!--        <span> {{movie.name}}</span> |-->
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

@@ -6,6 +6,7 @@ import {errorRoutes} from "./error/error.routes";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./auth/guard/auth.guard";
 import {RegisterComponent} from "./register/register.component";
+import {LogoutComponent} from "./logout/logout.component";
 
 const routes: Routes = [
 
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   },
   {
       path: 'search/:query',

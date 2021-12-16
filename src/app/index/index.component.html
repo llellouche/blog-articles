@@ -8,7 +8,7 @@
     padding-top: 60px;
   }
 
-  .movies {
+  .article {
     padding-top: 45px;
   }
 
@@ -20,17 +20,19 @@
 
 <app-header></app-header>
 <div class="container">
-  <div class="row movies">
-    <div class="col-md-4">
-      <span *ngFor="let gender of globalStore.allGenders">
-      <div>
-        <input [attr.id]="gender.id" type="checkbox" (click)="gender.selected = !gender.selected; globalStore.loadDiscoverMovies()" [checked]="gender.selected">
-        <label [attr.for]="gender.id">{{ gender.name }}</label>
+  <!--      TODO Display Tags for filter-->
+  <!--      <span *ngFor="let tag of globalStore.allTags">-->
+  <!--      <div>-->
+  <!--        <input [attr.id]="tag.id" type="checkbox" (click)="tag.selected = !tag.selected; globalStore.loadArticles()" [checked]="tag.selected">-->
+  <!--        <label [attr.for]="tag.id">{{ tag.title }}</label>-->
+  <!--      </div>-->
+  <!--    </span>-->
+  <div class="row article">
+      <div class="col-md-6">
+          <app-current-article [article]="globalStore.displayedArticle"></app-current-article>
       </div>
-    </span>
-    </div>
-    <div class="col-md-8">
-      <app-movie-list *ngIf="globalStore.displayedMovies" [movies]="globalStore.displayedMovies"></app-movie-list>
-    </div>
+      <div [ngClass]="{'container-fluid': ! globalStore.displayedArticle, 'col-md-6': globalStore.displayedArticle}">
+          <app-article-list *ngIf="globalStore.displayedArticles" [articles]="globalStore.displayedArticles" (article)="globalStore.displayedArticle = $event"></app-article-list>
+      </div>
   </div>
 </div>

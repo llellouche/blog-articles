@@ -1,4 +1,4 @@
-export class Article {
+export class Comment {
   public id?:number;
   public content?: string;
   public createdAt?: Date;

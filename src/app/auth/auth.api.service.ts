@@ -19,7 +19,7 @@ export class AuthApiService {
 
   public getAuthenticationToken(email: string, password: string): Observable<ResponseAuth> {
     return new Observable<ResponseAuth>(observer => {
-      let url = environment.baseApi + '/auth'
+      let url = '/auth';
       this.http
         .post(url, {
             email: email,
@@ -51,7 +51,7 @@ export class AuthApiService {
 
   public getRegisterToken(email: string, username: string, password: string): Observable<ResponseAuth> {
     return new Observable<ResponseAuth>(observer => {
-      let url = environment.baseApi + '/register'
+      let url = '/register';
       this.http
         .post(url, {
             email: email,

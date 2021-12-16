@@ -8,6 +8,7 @@ import {Movie} from "../model/movie";
 import {RouterService} from "../router/router.service";
 import {Router} from "@angular/router";
 import {MatAutocompleteTrigger} from "@angular/material/autocomplete";
+import {Article} from "../model/article";
 
 export interface State {
   flag: string;
@@ -22,7 +23,7 @@ export interface State {
 })
 export class SearchMovieAutocompleteComponent {
   searchCtrl = new FormControl();
-  filteredMovies: Observable<Movie[]>;
+  filteredMovies: Observable<Article[]>;
   @ViewChild(MatAutocompleteTrigger) autocomplete?: MatAutocompleteTrigger;
 
   public constructor(
@@ -49,7 +50,7 @@ export class SearchMovieAutocompleteComponent {
     }
   }
 
-  private filterStates(value: string): Movie[] {
+  private filterStates(value: string): Article[] {
     const filterValue = value.toLowerCase();
     this.globalStore.loadSearchMovies(filterValue);
 

@@ -16,8 +16,7 @@ export class IndexComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.globalStore.loadDiscoverMovies();
-    this.globalStore.loadGenders();
-    this.globalStore.loadMainVideoMovie();
+    this.globalStore.loadArticles();
+    this.globalStore.loadTags();
   }
 }
