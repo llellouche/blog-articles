@@ -3,8 +3,10 @@ import {Article} from "../model/article";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth/auth.service";
 import {CommentApiService} from "../service/api/comment-api.service";
-import {Reaction} from "../model/reaction";
 import {Comment} from "../model/comment";
+import {RouterService} from "../router/router.service";
+import {ArticleApiService} from "../service/api/article-api.service";
+import {ArticleService} from "../services/article-service";
 
 @Component({
   selector: 'app-current-article',
@@ -21,7 +23,10 @@ export class CurrentArticleComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private commentApiService: CommentApiService) {
+              private commentApiService: CommentApiService,
+              private articleApiService: ArticleApiService,
+              private articleService: ArticleService,
+              public routerService: RouterService) {
     this.comment = new Comment();
     this.formGroupComment = this.fb.group({
       comment: ['', [Validators.required]]
@@ -29,8 +34,13 @@ export class CurrentArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-  }
+    if (this.article != undefined) {
+      this.articleApiService.getOneArticle(this.article.id).subscribe((article: Article) => {
+        this.article = article;
+        this.articleService.loadArticleData(this.article, true);
+      });
+    }
+    }
 
   public onComment(): void {
     this.formGroupComment.markAllAsTouched();

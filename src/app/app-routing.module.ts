@@ -8,6 +8,7 @@ import {AuthGuard} from "./auth/guard/auth.guard";
 import {RegisterComponent} from "./register/register.component";
 import {LogoutComponent} from "./logout/logout.component";
 import {CreateArticleComponent} from "./create-article/create-article.component";
+import {UpdateArticleComponent} from "./update-article/update-article.component";
 
 const routes: Routes = [
 
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: 'article/create',
     component: CreateArticleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'article/:id/edit',
+    component: UpdateArticleComponent,
     canActivate: [AuthGuard]
   },
   ...errorRoutes,

@@ -19,7 +19,7 @@
 <!--        <li class="list-group-item">Vestibulum at eros</li>-->
     </ul>
     <div class="card-body">
-        <button mat-flat-button color="accent">
+        <button [routerLink]="routerService.generate('app_article_edit', {id: article?.id})" mat-flat-button color="accent">
             Edit
         </button>
         <button (click)="closeArticle.emit()" mat-flat-button class="close-button" color="secondary">

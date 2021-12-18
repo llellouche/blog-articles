@@ -22,4 +22,17 @@ export class TagApiService extends ApiService {
         ));
   }
 
+  public getAllTags(): Observable<Tag[]> {
+    return this.http
+      .get<Tag[]>(`/tags`).pipe(
+        map(
+            (response: any): any => {
+              let responseApi = new ResponseApi(response);
+              return responseApi.getMembers().map((tag): Tag => {
+                  return new Tag(tag);
+              });
+            }
+        ));
+  }
+
 }

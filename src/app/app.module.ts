@@ -28,6 +28,8 @@ import { ArticleReactionsComponent } from './article-reactions/article-reactions
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { ArticleFormComponent } from './article-form/article-form.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { UpdateArticleComponent } from './update-article/update-article.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     CurrentArticleComponent,
     ArticleReactionsComponent,
     CreateArticleComponent,
-    ArticleFormComponent
+    ArticleFormComponent,
+    UpdateArticleComponent
   ],
     imports: [
         ErrorModule,
@@ -62,6 +65,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
         HttpClientModule,
         AppRoutingModule,
         MatButtonModule,
+        MatChipsModule,
         MatBadgeModule,
         MatButtonToggleModule,
     ],

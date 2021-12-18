@@ -4,6 +4,7 @@ export class ResponseApi {
   public '@type'?: string;
   public 'hydra:member': [];
   public 'hydra:hydra:totalItems'?: number;
+  public 'ResponseApi'?: any;
 
   constructor(values: object = {}) {
     Object.assign(this, values);
@@ -11,5 +12,9 @@ export class ResponseApi {
 
   public getMembers(): [] {
     return this["hydra:member"];
+  }
+
+  public getMember(): [] {
+    return this["ResponseApi"];
   }
 }

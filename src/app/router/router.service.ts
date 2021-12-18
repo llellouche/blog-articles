@@ -9,7 +9,7 @@ interface RouteParams {
 
 @Injectable({providedIn: 'root'})
 export class RouterService {
-  public generate(routeName: Routes, routeParams?: RouteParams): string[] {
+  public generate(routeName: Routes, routeParams?: RouteParams | any): string[] {
     return APP_ROUTES[routeName].map(tmpRouteParam => {
       if (routeParams !== undefined && tmpRouteParam[0] === ':') {
         return routeParams[tmpRouteParam.slice(1)];

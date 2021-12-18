@@ -9,7 +9,8 @@
     <!-- Name input -->
     <div class="form-outline mb-4">
         <mat-form-field>
-            <input matInput
+            <input
+                   matInput
                    [(ngModel)]="article.name"
                    formControlName="name"
                    id="name"
@@ -34,28 +35,63 @@
                    type="email"></textarea>
             <mat-error>
                 <small class="d-block text-danger custom-danger text-right mt-1">
-                    Please enter conten
+                    Please enter content
                 </small>
             </mat-error>
         </mat-form-field>
     </div>
 
-    <mat-button-toggle-group>
-        <mat-button-toggle
-                [checked]="article.draft"
-                (change)="article.draft = $event.source.checked">
-            Draft
-        </mat-button-toggle>
-        <mat-button-toggle
-                [checked]="!article.draft"
-                (change)="article.draft = !$event.source.checked">
-            Published
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+    <!-- Content input -->
+    <div class="form-outline mb-4">
+        <mat-button-toggle-group>
+            <mat-button-toggle
+                    [checked]="article.draft"
+                    (change)="article.draft = $event.source.checked">
+                Draft
+            </mat-button-toggle>
+            <mat-button-toggle
+                    [checked]="!article.draft"
+                    (change)="article.draft = !$event.source.checked">
+                Published
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <div class="form-outline mb-4">
+        <mat-form-field class="example-chip-list" appearance="fill">
+            <mat-label>Select tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tag selection">
+                <mat-chip
+                        *ngFor="let tag of tags"
+                        (removed)="remove(tag)">
+                    {{tag}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+                <input
+                        #tagsInput
+                        placeholder="Select tags..."
+                        [formControl]="tagCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, tagsInput)">
+                <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                    {{tag}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
 
     <div class="text-center text-lg-start mt-4 pt-2">
-        <button mat-flat-button color="primary" type="submit">
-            Create
+        <button class="cancel-button" [routerLink]="routerService.generate('app_index')" mat-flat-button color="secondary">
+            Cancel
+        </button>
+        <button class="submit-button" mat-flat-button color="primary" type="submit">
+            Save
         </button>
     </div>
 

@@ -7,6 +7,7 @@ import {ReactionApiService} from "../api/reaction-api.service";
 import {Reaction} from "../../model/reaction";
 import {CommentApiService} from "../api/comment-api.service";
 import {Comment} from "../../model/comment";
+import {ArticleService} from "../../services/article-service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,7 @@ export class GlobalStore {
 
   constructor(
     private articleApiService: ArticleApiService,
-    private tagApiService: TagApiService,
-    private reactionApiService: ReactionApiService,
-    private commentApiService: CommentApiService,
+    private articleService: ArticleService,
   ) {
   }
 
@@ -38,7 +37,7 @@ export class GlobalStore {
     this.articleApiService.getAllArticles().subscribe((articles: Article[]) => {
       // Load Tags and Reactions
       articles.map((article: Article) => {
-        this.loadArticleData(article, false);
+        this.articleService.loadArticleData(article, false);
       });
       this.allArticles = articles;
       this.displayedArticles = articles;
@@ -47,24 +46,7 @@ export class GlobalStore {
 
   public refreshDisplayedArticle(): void {
     if(this.displayedArticle) {
-      this.loadArticleData(this.displayedArticle, true);
-    }
-  }
-
-  private loadArticleData(article: Article, full: boolean): void {
-    this.tagApiService.getArticleTags(article.id).subscribe((tags: Tag[]) => {
-      article.tags = tags;
-    });
-
-    this.reactionApiService.getArticleReactions(article.id).subscribe((reactions: Reaction[]) => {
-      article.reactions = reactions;
-    });
-
-    if (full) {
-      this.commentApiService.getArticleComments(article.id).subscribe((comments: Comment[]) => {
-        article.comments = comments;
-      });
-
+      this.articleService.loadArticleData(this.displayedArticle, true);
     }
   }
 
