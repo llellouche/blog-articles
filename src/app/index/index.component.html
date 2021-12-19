@@ -7,19 +7,19 @@
   <!--        <label [attr.for]="tag.id">{{ tag.title }}</label>-->
   <!--      </div>-->
   <!--    </span>-->
-    <div class="container-fluid ">
-        <div class="action-buttons cancel-search-button">
+    <div class="row">
+        <div class="col action-buttons cancel-search-button">
             <button *ngIf="globalStore.isSearchContext" (click)="displayArticles()" mat-flat-button color="warn">
                 Cancel Search
             </button>
         </div>
-        <div class="action-buttons">
-            <button [routerLink]="routerService.generate('app_article_create')" mat-flat-button color="primary">
+        <div class="col action-buttons">
+            <button [routerLink]="routerService.generate('app_article_create')" class="float-right" mat-flat-button color="primary">
                 Create new article
             </button>
         </div>
     </div>
-  <div class="article">
+  <div class="row article">
       <div class="col-md-6">
           <app-current-article *ngIf="globalStore.displayedArticle" [article]="globalStore.displayedArticle" (closeArticle)="globalStore.displayedArticle = undefined"></app-current-article>
       </div>

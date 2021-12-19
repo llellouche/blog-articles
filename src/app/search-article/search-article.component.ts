@@ -57,9 +57,9 @@ export class SearchArticleComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
+    // Empty fields
     if (this.resetSearch) {
-      console.log('RESET SEARCH CONTEXT');
-      this.formGroupSearchArticle.controls.search.setValue('');
+      this.formGroupSearchArticle.controls.search.setValue(null);
       this.tagsAutocompleteStore.reset();
     }
   }
@@ -80,7 +80,7 @@ export class SearchArticleComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private searchApi() {
-    if (this.search == '' && this.tags.length == 0) {
+    if ((this.search == '' || this.formGroupSearchArticle.controls.search.value == null) && this.tags.length == 0) {
       return;
     }
 
