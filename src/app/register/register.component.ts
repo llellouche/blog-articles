@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthApiService} from "../auth/auth.api.service";
 import {Router} from "@angular/router";
 import {RouterService} from "../router/router.service";
+import {takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.sass']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   public formGroupLogin: FormGroup;
   public passwordNotMatches: boolean;
+  private notifier = new Subject();
 
   constructor(private fb: FormBuilder,
               private authApiService: AuthApiService,
@@ -29,6 +32,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public ngOnDestroy(): void {
+    this.notifier.next();
+    this.notifier.complete();
+  }
 
   public onLoginSubmit(): void {
     this.formGroupLogin.markAllAsTouched();
@@ -52,7 +59,7 @@ export class RegisterComponent implements OnInit {
     let email    = this.formGroupLogin.controls.email.value;
     let username = this.formGroupLogin.controls.username.value;
     let password = this.formGroupLogin.controls.password.value;
-    this.authApiService.getRegisterToken(email, username, password).subscribe((res) => {
+    this.authApiService.getRegisterToken(email, username, password).pipe(takeUntil(this.notifier)).subscribe((res) => {
       if (res?.auth_token) {
         this.router.navigate(this.routerService.generate('app_index'))
       }

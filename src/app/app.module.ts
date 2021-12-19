@@ -8,36 +8,33 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ApiInterceptor} from "./service/api/apiInterceptor";
 import {ArticleListComponent} from './aticle-list/article-list.component';
-import {SearchMovieAutocompleteComponent} from './search-movie-autocomplete/search-movie-autocomplete.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
-import {SearchMovieResultsComponent} from './search-movie-results/search-movie-results.component';
-import { IndexComponent } from './index/index.component';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import {IndexComponent} from './index/index.component';
+import {HeaderComponent} from './header/header.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
 import {MatButtonModule} from "@angular/material/button";
-import { LogoutComponent } from './logout/logout.component';
-import { CurrentArticleComponent } from './current-article/current-article.component';
+import {LogoutComponent} from './logout/logout.component';
+import {CurrentArticleComponent} from './current-article/current-article.component';
 import {MatBadgeModule} from "@angular/material/badge";
-import { ArticleReactionsComponent } from './article-reactions/article-reactions.component';
-import { CreateArticleComponent } from './create-article/create-article.component';
-import { ArticleFormComponent } from './article-form/article-form.component';
+import {ArticleReactionsComponent} from './article-reactions/article-reactions.component';
+import {CreateArticleComponent} from './create-article/create-article.component';
+import {ArticleFormComponent} from './article-form/article-form.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import { UpdateArticleComponent } from './update-article/update-article.component';
+import {UpdateArticleComponent} from './update-article/update-article.component';
 import {MatChipsModule} from "@angular/material/chips";
-import { SearchArticleComponent } from './search-article/search-article.component';
+import {SearchArticleComponent} from './search-article/search-article.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticleListComponent,
-    SearchMovieAutocompleteComponent,
-    SearchMovieResultsComponent,
     IndexComponent,
     HeaderComponent,
     LoginComponent,
@@ -61,7 +58,6 @@ import { SearchArticleComponent } from './search-article/search-article.componen
         MatFormFieldModule,
         MatInputModule,
         MatAutocompleteModule,
-        FormsModule,
         ReactiveFormsModule,
         MatIconModule,
         HttpClientModule,
@@ -69,7 +65,7 @@ import { SearchArticleComponent } from './search-article/search-article.componen
         MatButtonModule,
         MatChipsModule,
         MatBadgeModule,
-        MatButtonToggleModule,
+        MatButtonToggleModule
     ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}

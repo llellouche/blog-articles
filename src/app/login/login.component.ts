@@ -1,16 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthApiService} from "../auth/auth.api.service";
 import {Router} from '@angular/router';
 import {RouterService} from "../router/router.service";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.sass']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     public formGroupLogin: FormGroup;
+    private notifier = new Subject();
 
     constructor(private fb: FormBuilder,
                 private authApiService: AuthApiService,
@@ -25,6 +28,10 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    public ngOnDestroy(): void {
+        this.notifier.next();
+        this.notifier.complete();
+    }
 
     public onLoginSubmit(): void {
         if (this.formGroupLogin.invalid) {
@@ -36,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         let email    = this.formGroupLogin.controls.email.value;
         let password = this.formGroupLogin.controls.password.value;
-        this.authApiService.getAuthenticationToken(email, password).subscribe((res) => {
+        this.authApiService.getAuthenticationToken(email, password).pipe(takeUntil(this.notifier)).subscribe((res) => {
             if (res?.auth_token) {
                 this.router.navigate(this.routerService.generate('app_index'))
             }

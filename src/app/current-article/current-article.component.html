@@ -6,7 +6,14 @@
             </div>
         </div>
         <p class="card-text ">{{ article?.content }}</p>
-        <span class="date be-comment-time">{{ article?.updatedAt | date: 'medium' }}</span>
+        <span class="author">
+            <i class="material-icons">person</i>
+            {{ article?.authorUsername }}
+        </span>
+        <span class="date be-comment-time">
+            <i class="material-icons">access_time</i>
+            {{ article?.updatedAt | date: 'medium' }}
+        </span>
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -19,7 +26,7 @@
 <!--        <li class="list-group-item">Vestibulum at eros</li>-->
     </ul>
     <div class="card-body">
-        <button [routerLink]="routerService.generate('app_article_edit', {id: article?.id})" mat-flat-button color="accent">
+        <button *ngIf="isAuthor()" [routerLink]="routerService.generate('app_article_edit', {id: article?.id})" mat-flat-button color="accent">
             Edit
         </button>
         <button (click)="closeArticle.emit()" mat-flat-button class="close-button" color="secondary">
@@ -41,7 +48,7 @@
 				{{ comment.username }}
 			</span>
                 <span class="be-comment-time">
-				<i class="fa fa-clock-o"></i>
+				<i class="material-icons">access_time</i>
 				{{ comment.updatedAt | date: 'medium' }}
 			</span>
                 <p class="be-comment-text">

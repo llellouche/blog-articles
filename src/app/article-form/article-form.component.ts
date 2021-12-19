@@ -7,6 +7,8 @@ import {Article} from "../model/article";
 import {Tag} from "../model/tag";
 import {TagsAutocompleteStore} from "../service/stores/tags-autocomplete-store";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-article-form',
@@ -17,6 +19,7 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
   public isUpdate: boolean = false;
   public formGroupArticle: FormGroup;
   public tagsAutocompleteReady: boolean = false;
+  private notifier = new Subject();
 
   @Input() article: Article;
 
@@ -39,13 +42,18 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tagsAutocompleteStore.init(this.article);
 
-    this.tagsAutocompleteStore.ready?.subscribe((ready: boolean) => {
+    this.tagsAutocompleteStore.ready?.pipe(takeUntil(this.notifier)).subscribe((ready: boolean) => {
       this.tagsAutocompleteReady = ready;
     });
 
+    if (this.article.id) {
+      this.isUpdate = true;
+    }
   }
   ngOnDestroy(): void {
     this.tagsAutocompleteStore.reset();
+    this.notifier.next();
+    this.notifier.complete();
   }
 
   public onArticleSubmit(): void {
@@ -70,13 +78,13 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
     });
 
     if (this.isUpdate) {
-      this.articleApiService.updateArticle(this.article, tags).subscribe((res) => {
+      this.articleApiService.updateArticle(this.article, tags).pipe(takeUntil(this.notifier)).subscribe((res) => {
         this.tagsAutocompleteStore.reset();
 
         this.router.navigate(this.routerService.generate('app_index'));
       });
     } else {
-      this.articleApiService.createArticle(this.article, this.authService.getLoggedUser(), tags).subscribe((res) => {
+      this.articleApiService.createArticle(this.article, this.authService.getLoggedUser(), tags).pipe(takeUntil(this.notifier)).subscribe((res) => {
         this.tagsAutocompleteStore.reset();
 
         this.router.navigate(this.routerService.generate('app_index'));

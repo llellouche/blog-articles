@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SearchMovieResultsComponent} from "./search-movie-results/search-movie-results.component";
 import {IndexComponent} from "./index/index.component";
 import {errorRoutes} from "./error/error.routes";
 import {LoginComponent} from "./login/login.component";
@@ -28,11 +27,6 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
-  },
-  {
-      path: 'search/:query',
-      component: SearchMovieResultsComponent,
-      canActivate: [AuthGuard]
   },
   {
     path: 'index',
