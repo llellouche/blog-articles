@@ -81,6 +81,7 @@ export class TagsAutocompleteStore {
     this.removeFromAutoComplete(tagToAdd);
 
     this.tagCtrl.setValue(null);
+    this.removeDoubleEntries();
   }
 
   public remove(tag: string): void {
@@ -91,6 +92,8 @@ export class TagsAutocompleteStore {
       this.addToAutoComplete(tag);
       this.tagCtrl.setValue(null);
     }
+
+    this.removeDoubleEntries();
   }
 
   public selected(event: MatAutocompleteSelectedEvent, input: HTMLInputElement): void {
@@ -147,5 +150,16 @@ export class TagsAutocompleteStore {
     }
 
     this.currentTags.emit(this.tags);
+  }
+
+  private removeDoubleEntries(): void {
+    // Remove duplicates (can happens cause of store data)
+    this.allTags = this.allTags.filter(function(elem, index, self) {
+      return index === self.indexOf(elem);
+    });
+
+    this.tags = this.tags.filter(function(elem, index, self) {
+      return index === self.indexOf(elem);
+    });
   }
 }

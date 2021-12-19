@@ -77,14 +77,20 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
       return fullTag["@id"];
     });
 
+    // Remove duplicates (can happens cause of store data)
+    let uniqueTagsIds: string[] = tags.filter(function(elem, index, self) {
+      console.log(elem, index === self.indexOf(elem));
+      return index === self.indexOf(elem);
+    });
+
     if (this.isUpdate) {
-      this.articleApiService.updateArticle(this.article, tags).pipe(takeUntil(this.notifier)).subscribe((res) => {
+      this.articleApiService.updateArticle(this.article, uniqueTagsIds).pipe(takeUntil(this.notifier)).subscribe((res) => {
         this.tagsAutocompleteStore.reset();
 
         this.router.navigate(this.routerService.generate('app_index'));
       });
     } else {
-      this.articleApiService.createArticle(this.article, this.authService.getLoggedUser(), tags).pipe(takeUntil(this.notifier)).subscribe((res) => {
+      this.articleApiService.createArticle(this.article, this.authService.getLoggedUser(), uniqueTagsIds).pipe(takeUntil(this.notifier)).subscribe((res) => {
         this.tagsAutocompleteStore.reset();
 
         this.router.navigate(this.routerService.generate('app_index'));

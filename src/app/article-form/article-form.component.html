@@ -1,6 +1,6 @@
 <form (submit)="onArticleSubmit()" [formGroup]="formGroupArticle" autocomplete="off">
     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-        <p class="lead fw-normal mb-0 me-3">Create new article</p>
+        <p class="lead fw-normal mb-0 me-3">Update article : {{ article?.name }}</p>
     </div>
 
     <div class="divider d-flex align-items-center my-4">

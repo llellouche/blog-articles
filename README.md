@@ -10,22 +10,47 @@ Run `npm install`
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Build with Docker
+Build App `docker build -t articles/blog .`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Launch App `docker run -d -p 4200:80 articles/blog`
 
-## Build
+Open App on http://localhost:4200
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+# Features
 
-## Running unit tests
+Login with database Token authentication (http://localhost:4200/login)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Register (http://localhost:4200/register)
 
-## Running end-to-end tests
+Main page (http://localhost:4200) :
+* List all paginated articles
+* Read one full article
+* Comment one article
+* React to one article
+* Search Articles by title and Tags
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Create article page (http://localhost:4200/article/create)
 
-## Further help
+Update article page (http://localhost:4200/article/:id/update)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Not found (404) page (http://localhost:4200/toto)
+
+*Only article owner and Admins accounts can update article* 
+
+**App usage required to be logged**
+
+Enjoy :thumbsup:
+
+# Technical points
+* Models are mapped from backends with mappings
+* Components are reusable
+* Guard implementation for redirect non logged users
+* API Calls are in Api Services
+* Api Interceptor to decorate requests with AuthToken
+* Store as a service architecture, components communicates through GlobalStoreService
+  * Data are stored in GlobalStoreService
+  * Weak link between components
+  * Code reusability
+* URL Routing generator service (RouterService), with named routes
+* Auth Service is used to store the user
