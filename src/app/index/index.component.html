@@ -17,7 +17,7 @@
           <app-current-article *ngIf="globalStore.displayedArticle" [article]="globalStore.displayedArticle" (closeArticle)="globalStore.displayedArticle = undefined"></app-current-article>
       </div>
       <div [ngClass]="{'container-fluid': ! globalStore.displayedArticle, 'col-md-6': globalStore.displayedArticle}">
-          <app-article-list *ngIf="globalStore.displayedArticles" [articles]="globalStore.displayedArticles" (article)="displayArticle($event)"></app-article-list>
+          <app-article-list [articles]="globalStore.displayedArticles" (article)="displayArticle($event)"></app-article-list>
       </div>
   </div>
 </div>

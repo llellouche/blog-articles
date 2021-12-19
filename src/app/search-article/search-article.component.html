@@ -1,0 +1,45 @@
+<form [formGroup]="formGroupSearchArticle" autocomplete="off">
+    <!-- Name input -->
+    <div class="form-outline mb-4">
+        <mat-form-field>
+            <input
+                    #searchField
+                    matInput
+                    formControlName="search"
+                    autocomplete="off"
+                    id="name"
+                    placeholder="Search Article"
+                    type="text">
+        </mat-form-field>
+    </div>
+
+    <div class="form-outline mb-4">
+        <mat-form-field class="example-chip-list" appearance="fill">
+            <mat-label>Select tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tag selection">
+                <mat-chip
+                        *ngFor="let tag of tagsAutocompleteStore.tags"
+                        (removed)="remove(tag)">
+                    {{tag}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+                <input
+                    #tagsInput
+                    placeholder="Select tags..."
+                    [disabled]="! tagsAutocompleteReady"
+                    [formControl]="tagsAutocompleteStore.tagCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="tagsAutocompleteStore.separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagsAutocompleteStore.selected($event, tagsInput)">
+                <mat-option *ngFor="let tag of tagsAutocompleteStore.filteredTags | async" [value]="tag">
+                    {{tag}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</form>

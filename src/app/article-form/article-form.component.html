@@ -62,8 +62,8 @@
             <mat-label>Select tags</mat-label>
             <mat-chip-list #chipList aria-label="Tag selection">
                 <mat-chip
-                        *ngFor="let tag of tags"
-                        (removed)="remove(tag)">
+                        *ngFor="let tag of tagsAutocompleteStore.tags"
+                        (removed)="tagsAutocompleteStore.remove(tag)">
                     {{tag}}
                     <button matChipRemove>
                         <mat-icon>cancel</mat-icon>
@@ -72,14 +72,15 @@
                 <input
                         #tagsInput
                         placeholder="Select tags..."
-                        [formControl]="tagCtrl"
+                        [disabled]="! tagsAutocompleteReady"
+                        [formControl]="tagsAutocompleteStore.tagCtrl"
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        (matChipInputTokenEnd)="add($event)">
+                        [matChipInputSeparatorKeyCodes]="tagsAutocompleteStore.separatorKeysCodes"
+                        (matChipInputTokenEnd)="tagsAutocompleteStore.add($event)">
             </mat-chip-list>
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, tagsInput)">
-                <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagsAutocompleteStore.selected($event, tagsInput)">
+                <mat-option *ngFor="let tag of tagsAutocompleteStore.filteredTags | async" [value]="tag">
                     {{tag}}
                 </mat-option>
             </mat-autocomplete>

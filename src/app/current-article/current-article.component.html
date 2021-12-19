@@ -10,8 +10,8 @@
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
-            <span *ngFor="let tag of article?.tags" class="badge rounded-pill bg-info">{{ tag.title }}</span>
             <app-article-reactions [article]="article"></app-article-reactions>
+            <span *ngFor="let tag of article?.tags" class="badge rounded-pill bg-info">{{ tag.title }}</span>
         </li>
 <!--        <li class="list-group-item">-->
 <!--            <app-article-reactions [article]="article"></app-article-reactions>-->

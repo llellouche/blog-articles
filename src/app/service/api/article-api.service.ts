@@ -61,4 +61,20 @@ export class ArticleApiService extends ApiService {
           map((): any => {}));
     }
 
+    public search(search: string, tags: string[]): Observable<Article[]> {
+      let searchParams = {
+          query: search,
+          tags: tags
+      };
+      return this.http
+        .get(`/articles/search/${JSON.stringify(searchParams)}`).pipe(
+          map(
+              (response: any): any => {
+                  let responseApi = new ResponseApi(response);
+                   return responseApi.getMembers().map((article): Article => {
+                      return new Article(article);
+                  });
+              }
+          ));
+    }
 }

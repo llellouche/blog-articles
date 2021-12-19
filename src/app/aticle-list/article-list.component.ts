@@ -7,8 +7,10 @@ import {Article} from "../model/article";
   styleUrls: ['./article-list.component.sass']
 })
 export class ArticleListComponent implements OnInit {
-  @Input() articles: Article[];
+  @Input() articles?: Article[];
   @Output() article = new EventEmitter<Article>();
+
+  public searchInProgress = false;
 
   public constructor() {
     this.articles = [];

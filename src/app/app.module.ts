@@ -30,6 +30,7 @@ import { ArticleFormComponent } from './article-form/article-form.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { UpdateArticleComponent } from './update-article/update-article.component';
 import {MatChipsModule} from "@angular/material/chips";
+import { SearchArticleComponent } from './search-article/search-article.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatChipsModule} from "@angular/material/chips";
     ArticleReactionsComponent,
     CreateArticleComponent,
     ArticleFormComponent,
-    UpdateArticleComponent
+    UpdateArticleComponent,
+    SearchArticleComponent
   ],
     imports: [
         ErrorModule,

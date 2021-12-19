@@ -1,25 +1,41 @@
-<div *ngFor="let article of articles" class="card">
-  <div class="card-horizontal">
-    <div class="img-square-wrapper">
-      <div class="title-wrapper">
-        {{ article.name }}
-      </div>
-    </div>
-    <div class="card-body">
-      <br>
-      <h4 class="card-title">{{ article.content | slice:0:55 }}</h4>
-      <br>
-<!--      <p class="card-text">{{ article.createdAt | date }}</p>-->
-      <br>
-      <br>
-    </div>
+<style type="text/css">.conteneur_general_load_9{width:60px;height:130px} .loader_9,.loader_9:before,.loader_9:after{-webkit-animation:load_neuf 1s infinite ease-in;-moz-animation:load_neuf 1s infinite ease-in;-ms-animation:load_neuf 1s infinite ease-in;animation:load_neuf 1s infinite ease-in;width:20px;height:80px} .loader_9:before,.loader_9:after{position:absolute;top:0;content:''} .loader_9:before{right:-20px} .loader_9{position:relative;-webkit-animation-delay:-0.16s;-moz-animation-delay:-0.16s;-ms-animation-delay:-0.16s;animation-delay:-0.16s} .loader_9:after{right:20px;-webkit-animation-delay:-0.32s;-moz-animation-delay:-0.32s;-ms-animation-delay:-0.32s;animation-delay:-0.32s} @-webkit-keyframes load_neuf{0%,80%,100%{box-shadow:0 0 #17A2B8;height:80px;background:#17A2B8}40%{box-shadow:0 -15px #3F51B5;height:100px;background:#3F51B5}} @-moz-keyframes load_neuf{0%,80%,100%{box-shadow:0 0 #17A2B8;height:80px;background:#17A2B8}40%{box-shadow:0 -15px #3F51B5;height:100px;background:#3F51B5}} @-ms-keyframes load_neuf{0%,80%,100%{box-shadow:0 0 #17A2B8;height:80px;background:#17A2B8}40%{box-shadow:0 -15px #3F51B5;height:100px;background:#3F51B5}} @keyframes load_neuf{0%,80%,100%{box-shadow:0 0 #17A2B8;height:80px;background:#17A2B8}40%{box-shadow:0 -15px #3F51B5;height:100px;background:#3F51B5}}</style>
+
+<div class="container-fluid">
+  <app-search-article (searchInProgress)="searchInProgress = $event"></app-search-article>
+</div>
+
+<div class="container-fluid">
+  <div class="loader" *ngIf="searchInProgress || articles == undefined">
+    <div class="conteneur_general_load_9 loader" align="center"> <div class="loader_9"></div> </div>
   </div>
-  <div class="card-footer">
-    <app-article-reactions [article]="article"></app-article-reactions>
-    <span class="tags" *ngFor="let tag of article.tags" class="badge rounded-pill bg-info">{{ tag.title }}</span>
-    <button (click)="triggerReadArticle(article)" mat-flat-button class="read-button" color="primary">
-      Read
-    </button>
+  <div class="no-result" *ngIf="articles?.length == 0">
+    <h1>Aucun résultat pour cette recherche</h1>
   </div>
 </div>
 
+<div *ngIf="searchInProgress == false" class="search-container">
+  <div *ngFor="let article of articles" class="card">
+    <div class="card-horizontal">
+      <div class="img-square-wrapper">
+        <div class="title-wrapper">
+          {{ article.name }}
+        </div>
+      </div>
+      <div class="card-body">
+        <br>
+        <h4 class="card-title">{{ article.content | slice:0:55 }}</h4>
+        <br>
+        <!--      <p class="card-text">{{ article.createdAt | date }}</p>-->
+        <br>
+        <br>
+      </div>
+    </div>
+    <div class="card-footer">
+      <app-article-reactions [article]="article"></app-article-reactions>
+      <span *ngFor="let tag of article.tags" class="badge rounded-pill bg-info">{{ tag.title }}</span>
+      <button (click)="triggerReadArticle(article)" mat-flat-button class="read-button" color="primary">
+        Read
+      </button>
+    </div>
+  </div>
+</div>
