@@ -21,9 +21,9 @@ export class ArticleApiService extends ApiService {
         ));
   }
 
-  public getAllArticles(): Observable<Article[]> {
+  public getAllArticles(page: number): Observable<Article[]> {
     return this.http
-      .get<Article[]>(`/articles`).pipe(
+      .get<Article[]>(`/articles?page=${page}`).pipe(
         map(
           (response: any): any => {
             let responseApi = new ResponseApi(response);

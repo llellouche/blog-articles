@@ -4,10 +4,7 @@
 
 export const environment = {
   production: false,
-  weCineApiKey: 'ca804e95ea4878495fa15e7a2bba460a', // TODO Remove
-  defaultLanguage: 'fr-FR',
-  // baseApi: 'http://0.0.0.0:8080',
-  baseApi: 'http://localhost:4200/api',
+  baseApi: 'http://localhost:4200/api'
 };
 
 /*

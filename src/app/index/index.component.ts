@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GlobalStore} from "../service/stores/global-store";
 import {Article} from "../model/article";
 import {RouterService} from "../router/router.service";
@@ -8,20 +8,29 @@ import {RouterService} from "../router/router.service";
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.sass']
 })
-export class IndexComponent implements OnInit {
-
+export class IndexComponent implements OnInit, OnDestroy {
   public constructor(
     public globalStore: GlobalStore,
     public routerService: RouterService) {
   }
 
   public ngOnInit(): void {
-    this.globalStore.loadArticles();
-    this.globalStore.loadTags();
+    this.displayArticles();
+  }
+
+  ngOnDestroy(): void {
+    this.globalStore.resetPagination();
   }
 
   public displayArticle(article: Article): void {
     this.globalStore.displayedArticle = article;
     this.globalStore.refreshDisplayedArticle();
+  }
+
+  public displayArticles(): void {
+    this.globalStore.resetPagination();
+    this.globalStore.loadArticles();
+    this.globalStore.loadTags();
+
   }
 }

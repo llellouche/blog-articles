@@ -9,16 +9,19 @@ import {ArticleService} from "../../services/article-service";
 })
 export class GlobalStore {
   public allTags?: Tag[];
-  public allArticles?: Article[];
   public displayedArticles?: Article[];
   public displayedArticle?: Article;
   public currentSearch?: string;
   public searchResults: Article[] = [];
+  public page: number;
+  public isSearchContext: boolean;
 
   constructor(
     private articleApiService: ArticleApiService,
     private articleService: ArticleService,
   ) {
+    this.page = 1;
+    this.isSearchContext = false;
   }
 
   public loadTags(): void {
@@ -29,13 +32,17 @@ export class GlobalStore {
   }
 
   public loadArticles(): void {
-    this.articleApiService.getAllArticles().subscribe((articles: Article[]) => {
+    this.isSearchContext = false;
+    this.articleApiService.getAllArticles(this.page).subscribe((articles: Article[]) => {
       // Load Tags and Reactions
       articles.map((article: Article) => {
         this.articleService.loadArticleData(article, false);
       });
-      this.allArticles = articles;
-      this.displayedArticles = articles;
+      if (this.displayedArticles == undefined) {
+        this.displayedArticles = [];
+      }
+      this.displayedArticles?.push(...articles);
+      this.page++;
     });
   }
 
@@ -43,5 +50,10 @@ export class GlobalStore {
     if(this.displayedArticle) {
       this.articleService.loadArticleData(this.displayedArticle, true);
     }
+  }
+
+  public resetPagination(): void {
+    this.page = 1;
+    this.displayedArticles = undefined;
   }
 }

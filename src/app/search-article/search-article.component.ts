@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TagsAutocompleteStore} from "../service/stores/tags-autocomplete-store";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {Article} from "../model/article";
@@ -14,8 +14,9 @@ import {ArticleService} from "../services/article-service";
   templateUrl: './search-article.component.html',
   styleUrls: ['./search-article.component.sass']
 })
-export class SearchArticleComponent implements OnInit, OnDestroy {
+export class SearchArticleComponent implements OnInit, OnChanges, OnDestroy {
   @Output() searchInProgress = new EventEmitter<boolean>();
+  @Input() resetSearch?: boolean;
 
   public formGroupSearchArticle: FormGroup;
   public tagsAutocompleteReady: boolean = false;
@@ -34,6 +35,7 @@ export class SearchArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.globalStore.resetPagination();
     this.tagsAutocompleteStore.init();
 
     this.tagsAutocompleteStore.currentTags?.pipe(takeUntil(this.notifier)).subscribe((tags: string[]) => {
@@ -54,10 +56,19 @@ export class SearchArticleComponent implements OnInit, OnDestroy {
         });
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (this.resetSearch) {
+      console.log('RESET SEARCH CONTEXT');
+      this.formGroupSearchArticle.controls.search.setValue('');
+      this.tagsAutocompleteStore.reset();
+    }
+  }
+
   public ngOnDestroy(): void {
     this.tagsAutocompleteStore.reset();
     this.notifier.next();
     this.notifier.complete();
+    this.globalStore.isSearchContext = false;
   }
 
   public remove(tag: string) {
@@ -72,6 +83,9 @@ export class SearchArticleComponent implements OnInit, OnDestroy {
     if (this.search == '' && this.tags.length == 0) {
       return;
     }
+
+    console.log('SEARCH');
+    this.globalStore.isSearchContext = true;
 
     this.searchInProgress.emit(true);
     this.articleApiService.search(this.search, this.tags).pipe(takeUntil(this.notifier)).subscribe((articles: Article[]) => {

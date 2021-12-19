@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/WeCine'),
+      dir: require('path').join(__dirname, './coverage/BlogArticles'),
       subdir: '.',
       reporters: [
         { type: 'html' },

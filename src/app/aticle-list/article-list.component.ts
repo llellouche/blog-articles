@@ -8,7 +8,9 @@ import {Article} from "../model/article";
 })
 export class ArticleListComponent implements OnInit {
   @Input() articles?: Article[];
+  @Input() isSearchContext?: boolean;
   @Output() article = new EventEmitter<Article>();
+  @Output() loadMore = new EventEmitter<void>();
 
   public searchInProgress = false;
 

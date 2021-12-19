@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "WeCine": {
+    "BlogArticles": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
 
-            "outputPath": "dist/WeCine",
+            "outputPath": "dist/BlogArticles",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,10 +77,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "WeCine:build:production"
+              "browserTarget": "BlogArticles:build:production"
             },
             "development": {
-              "browserTarget": "WeCine:build:development"
+              "browserTarget": "BlogArticles:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WeCine:build"
+            "browserTarget": "BlogArticles:build"
           }
         },
         "test": {
@@ -113,5 +113,5 @@
       }
     }
   },
-  "defaultProject": "WeCine"
+  "defaultProject": "BlogArticles"
 }
